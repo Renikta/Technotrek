@@ -1,7 +1,29 @@
+//! @file solve_square_eq.c
+/*! \mainpage Quadratic equation
+ *
+ * This program solves the square equation.
+ * - solve_square_eq.c
+ */
+
 #include <stdio.h>
 #include <math.h>
 
 #define EPS 0.00005
+
+#define UNITTEST(number_one, operation, number_two) \
+{\
+    if(!((number_one) operation (number_two))) \
+        printf("Fail"); \
+    else \
+        printf("True"); \
+}
+
+/*#ifdef UNITTEST(3, '+', 7) {
+    printf("Yes");
+}
+#else
+    printf("No");
+#endif */
 
 enum roots {
     ERROR = -1,
@@ -13,6 +35,12 @@ enum roots {
 
 int quad_equation(double a, double b, double c, double* x1, double* x2); //решает квадратное уравнение и возращает количество корней
 int is_equal(double x, double y); //сравнивает на равенство два числа и возращает результат 0 или 1
+
+
+//------------------------------------------------------------------------------
+//! Main - user wrapper of solve square equation function
+//! @return - return exit code
+//------------------------------------------------------------------------------
 
 int main() {
     int num_root = -1;      //количество корней
@@ -48,6 +76,15 @@ int main() {
     }
     return 0;
 }
+//------------------------------------------------------------------------------
+//! quad_equation - solves the square equation
+//! @param [in] a - first coefficient
+//! @param [in] b - second coefficient
+//! @param [in] c - third coefficient
+//! @param [out] x1 -root
+//! @param [out] x2 - root
+//! @return - number of roots or error
+//------------------------------------------------------------------------------
 
 int quad_equation(double a, double b, double c, double* x1, double* x2) {
     double dis = 0, sq = 0; //значение дискриминанта и корня из него
@@ -107,9 +144,19 @@ int quad_equation(double a, double b, double c, double* x1, double* x2) {
     return num_root;
 }
 
+//------------------------------------------------------------------------------
+//! is_equal - compares two numbers for equality in some neighborhood
+//! @param [in] x - first number
+//! @param [in] y - second number
+//! @return - returns 0 or 1 depending on the result, or an error if the number is bad.
+//------------------------------------------------------------------------------
+
 int is_equal(double x, double y) {
     if ((x == x) && (y == y)) {
-        return x - y < EPS;
+        if (x > y)
+            return x - y < EPS;
+        else
+            return y - x < EPS;
     }
     else {
         return ERROR;
