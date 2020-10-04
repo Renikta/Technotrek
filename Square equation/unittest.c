@@ -1,8 +1,7 @@
 #include "sqeq.h"
 
 int main() {
-    check_is_equal();
+    check_compare();
     check_equation();
-    check_moreless();
     return 0;
 }
