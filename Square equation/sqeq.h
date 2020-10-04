@@ -1,25 +1,51 @@
 #include <stdio.h>
 #include <math.h>
+#include <stdlib.h>
 
-#define EPS    0.00005
 #define RESET  "\033[0m"
 #define RED    "\033[1;31m"
 #define GREEN  "\033[1;32m"
 
 enum roots {
-    ERROR = -100,
-    ZERO = 0,
-    ONE = 1,
-    TWO = 2,
-    INFINIT = 3
+    ROOT_ZERO = 0,
+    ROOT_ONE = 1,
+    ROOT_TWO = 2,
+    ROOT_INFINIT = 3
 };
 
-int quad_equation(double a, double b, double c, double* x1, double* x2);/*решает
- квадратное уравнение*/
-int is_equal(double x, double y); //если равно 1, если не равно 0
-int moreless(double x, double y); // -1, если x меньше y, 1, если x больше y;
+enum comparison {
+    MORE = 1,
+    EQUAL = 0,
+    LESS = -1
+};
+
+enum error {
+    SS_ERROR_SAME_ROOTS = -101,
+    SS_ERROR_NULL_IN = -102,
+    SS_ERROR_NAN_OUT = -103,
+    C_ERROR_NULL_IN = -104
+};
+
+
+int quad_equation(double a, double b, double c, double* x1, double* x2);
+
+//------------------------------------------------------------------------------
+//! quad_equation - solves the square equation
+//! @param [in] a - first coefficient
+//! @param [in] b - second coefficient
+//! @param [in] c - third coefficient
+//! @param [out] x1, x2 -roots
+//! @return - number of roots: 0, 1, 2 or infinity
+//------------------------------------------------------------------------------
+
+int compare(double x, double y);
+
+//------------------------------------------------------------------------------
+//! comparison - compares two numbers to each other
+//! @param [in] x, y - numbers to be compared
+//! @return - returns 0 if equal, 1 if x is greater than y, -1 if x is less than
+//! y.
+//------------------------------------------------------------------------------
+
 void check_equation(); //проверяет guad_equation
-void check_is_equal(); //проверяет is_equal
-void check_moreless(); //проверяет moreless
-int normal_mode(); //main в обычном режиме
-int ghost_mode(); //main в режиме DEBAG
+void check_compare(); //проверяет morelessz
