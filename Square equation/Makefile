@@ -24,4 +24,4 @@ gcov_solve.out: sqeq.c unittest.c
 .PHONY: clean
 
 clean:
-	rm *.d *.o *.gcda *.gcno
+	rm *.d *.o *.gcda *.gcno *.gcov
